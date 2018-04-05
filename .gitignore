@@ -1,5 +1,6 @@
 
 *.db
+.idea
 
 # https://github.com/github/gitignore/blob/master/Node.gitignore
 ##

@@ -29,18 +29,20 @@ module.exports = function(options) {
   {
     pageSpecs = options;
     options = {};
-  } else if(pageSpecs)
+  }
+
+  if(options == undefined)
+    throw new BabyGotError('no pageSpecs or options found')
+
+  if(options.pageSpecs)
     pageSpecs = options.pageSpecs;
   else
-    throw BabyGotError('[BabyGotBackEnd] no pageSpecs found')
+    throw new BabyGotError('no pageSpecs found')
 
   pageSpecs.forEach(page => {
     bbgbe.get(page.route, (req, res) => {
       const contentType = page.contentType || 'text/html; charset=utf-8';
       let { filename, render } = page;
-
-      if(!render)
-        render = contents => contents;
 
       if(filename) {
         fs.readFile(filename, (error, contents) => {

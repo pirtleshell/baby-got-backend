@@ -1,20 +1,29 @@
 
 const path = require('path');
 const express = require('express');
-const babyGotBackend = require('../src');
+const babyGotBackend = require('../index');
 
-let renderer = (obj) => {
-  if(obj.editor)
-    return obj.editor
-}
+const here = (filename) => path.join(__dirname, filename);
+let fauxMdRender = (text) => '<!DOCTYPE html><html><head></head><body><p>' +
+  text.split('\n').map(line => `${line}</p>`).join('') + '</body></html>';
 
 const app = express();
 
 app.use('/admin', babyGotBackend([
   {
     route: '/hello',
-    filename: path.join(__dirname, 'testing.html'),
+    filename: here('testing.html'),
     render: text => `<h1>${text}</h1>`
+  },
+  {
+    route: '/example',
+    filename: here('examplePost.md'),
+    render: fauxMdRender
+  },
+  {
+    route: 'ooojson',
+    filename: here('sokd'),
+    contentType: 'json'
   }
 ]));
 

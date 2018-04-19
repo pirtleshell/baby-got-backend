@@ -2,24 +2,12 @@
 
 const fs = require('fs');
 const express = require('express');
-const BabyGotError = require('./errors');
+const ReactDOM = require('react-dom/server');
+
+const BabyGotError = require('./src/errors');
 
 module.exports = function(options) {
-  console.log('loaded')
-
   const bbgbe = express.Router();
-
-  //////////////////
-  // Fixed Routes //
-  //////////////////
-  bbgbe.get('/login', (req, res, next) => {
-    console.log('trying to login')
-    next();
-  });
-
-  bbgbe.get('/dashboard', (req, res, next) => {
-    res.send('dashboard');
-  })
 
   ///////////////////
   // Process Pages //
@@ -30,11 +18,7 @@ module.exports = function(options) {
     pageSpecs = options;
     options = {};
   }
-
-  if(options == undefined)
-    throw new BabyGotError('no pageSpecs or options found')
-
-  if(options.pageSpecs)
+  else if((options || {}).pageSpecs)
     pageSpecs = options.pageSpecs;
   else
     throw new BabyGotError('no pageSpecs found')
@@ -42,6 +26,7 @@ module.exports = function(options) {
   pageSpecs.forEach(page => {
     bbgbe.get(page.route, (req, res) => {
       const contentType = page.contentType || 'text/html; charset=utf-8';
+      console.log(contentType)
       let { filename, render } = page;
 
       if(filename) {
@@ -58,6 +43,15 @@ module.exports = function(options) {
       }
     });
   });
+
+  //////////////////
+  // Fixed Routes //
+  //////////////////
+  bbgbe.get('/login', (req, res, next) => {
+    console.log('trying to login')
+    next();
+  });
+
 
   ///////////////
   // Catch All //

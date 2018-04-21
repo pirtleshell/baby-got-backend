@@ -1,0 +1,68 @@
+html,body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+#mainContent {
+  height: 100%
+}
+
+#mainContent > div:first-of-type {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  height: 100%;
+}
+
+#app_header {
+  background-color: #bad;
+
+  /* when you change the height, change the app_main calc */
+  min-height: 35px;
+}
+
+#app_main {
+  display: flex;
+  min-height: calc(100% - 35px);
+}
+
+#posts {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+/* POST LIST */
+#posts_list {
+  margin: 0;
+  flex: .5;
+  overflow-y: auto;
+  flex-direction: column;
+  background-color: cyan;
+  max-width: 300px;
+}
+
+.posts_listblock {
+  list-style: none;
+  margin: 0 auto;
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+
+.posts_listblock:hover {
+  background: blueviolet;
+  color: #fff
+}
+
+/* POST DISPLAY */
+#post_display {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 25px
+}

@@ -4,6 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const ReactDOM = require('react-dom/server');
 
+const api = require('./api');
 const BabyGotError = require('./src/errors');
 
 module.exports = function(options) {
@@ -52,14 +53,12 @@ module.exports = function(options) {
     next();
   });
 
+  bbgbe.use('/api', api(pageSpecs));
 
   ///////////////
   // Catch All //
   ///////////////
-  bbgbe.get('*', (req, res) => {
-    res.send('babyGotBackend')
-    console.log('babyGotBackend')
-  })
+  bbgbe.get('*', express.static('public'))
 
   return bbgbe;
 }

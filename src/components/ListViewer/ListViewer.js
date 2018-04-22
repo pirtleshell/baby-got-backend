@@ -12,6 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.changeContent = this.changeContent.bind(this);
+    this.fetchMore = this.fetchMore.bind(this);
     this.watchLeftRight = this.watchLeftRight.bind(this);
     this.state = {
       display: 'welcome!',
@@ -22,6 +23,19 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('keypress', this.watchLeftRight);
+    this.fetchMore();
+  }
+
+  fetchMore() {
+    console.log('fetching more posts');
+    fetch('http://localhost:3000/admin/api/posts').then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        this.setState(prevState => ({
+          items: prevState.items.concat(data.posts).map(keyPosts)
+        }))
+      })
   }
 
   changeContent(post) {
@@ -68,6 +82,7 @@ class App extends React.Component {
               posts={this.state.items}
               onPostClick={this.changeContent}
               selectedKey={this.state.currentPost.key}
+              fetchMore={this.fetchMore}
             />
             <div id='post_display'
               dangerouslySetInnerHTML={{__html: this.state.display}}

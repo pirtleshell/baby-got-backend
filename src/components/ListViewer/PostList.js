@@ -10,7 +10,7 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { posts, onPostClick, selectedKey } = this.props;
+    const { posts, onPostClick, fetchMore, selectedKey } = this.props;
 
     return (
       <ul id='posts_list'>
@@ -24,6 +24,10 @@ class PostList extends React.Component {
               selected={selectedKey === key}
             />
         )})}
+        {fetchMore &&
+          <ListBlock post={{name: 'Load More'}}
+            clickHandler={fetchMore}
+          />}
       </ul>
     );
   }

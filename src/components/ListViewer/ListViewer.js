@@ -48,7 +48,8 @@ class App extends React.Component {
     else
     {
       console.log('unable to render!')
-      display = `<h1>unable to render that post<h1><pre>${JSON.stringify(post, 2)}</pre>`;
+      display = '<h1>unable to render that post</h1>' +
+        `<pre>${JSON.stringify(post, undefined, 2)}</pre>`;
     }
     this.setState({ display, currentPost: post });
   }

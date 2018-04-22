@@ -1,0 +1,93 @@
+#%RAML 1.0
+---
+title: BabyGotBackend PageSpecs
+baseUri: /admin/api/
+version: v0
+
+/posts:
+  get:
+    description: All the posts
+  #   queryParameters:
+  #     author:
+  #       displayName: Post Author
+  #       type: string
+  #       description: The author of the post
+  #       example: Robert Pirtle
+  #       required: false
+  #     page:
+  #       displayName: page
+  #       type: integer
+  #       description: Pagination page
+  #       example: 3
+  #       required: false
+  #     limit:
+  #       displayName: limit
+  #       type: integer
+  #       description: Number of posts to return per pagination page
+  #       default: 20
+  #       example: 50
+  #       required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "posts": [
+                  {
+                    "name": "another post",
+                    "rendered": "<h1>async magic!</h1>"
+                  },
+                  {
+                    "name": "hello",
+                    "route": "/hello",
+                    "filename": "testing.html",
+                    "text": "the grand tour!\n",
+                    "rendered": "<h1>the grand tour!\n</h1>"
+                  }
+                ]
+              }
+      # 400:
+      #   body:
+      #     application/json:
+      #       example: |
+      #         {
+      #           "error": "not authorized"
+      #         }
+  # post:
+  #   queryParameters:
+  #     access_token:
+  #       displayName: Access Token
+  #       type: string
+  #       description: Token giving you permission to make call
+  #       required: true
+
+  /{postId}:
+    get:
+      description: The data for a specific post
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "name": "hello",
+                  "route": "/hello",
+                  "filename": "testing.html",
+                  "text": "the grand tour!\n",
+                  "rendered": "<h1>the grand tour!\n</h1>"
+                }
+    # put:
+    #   queryParameters:
+    #     access_token:
+    #       displayName: Access Token
+    #       type: string
+    #       description: Token giving you permission to make call
+    #       required: true
+    # delete:
+    #   queryParameters:
+    #     access_token:
+    #       displayName: Access Token
+    #       type: string
+    #       description: Token giving you permission to make call
+    #       required: true

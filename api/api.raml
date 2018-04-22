@@ -4,49 +4,155 @@ title: BabyGotBackend PageSpecs
 baseUri: /admin/api/
 version: v0
 
+types:
+  post:
+    name: string
+    filename?: string
+    text?: string
+    rendered?: string
+
+
+resourceTypes:
+  collection:
+    description: Collection of available <<resourcePathName>>
+    get:
+      description: Get a list of <<resourcePathName>>
+      responses:
+        200:
+          body:
+            application/json:
+    post:
+      description: |
+        Add a new <<resourcePathName|!singularize>>
+      # queryParameters:
+      #   access_token:
+      #     description: "The access token provided by the authentication application"
+      #     example: AABBCCDD
+      #     required: true
+      #     type: string
+      body:
+        application/json:
+          type: <<resourcePathName|!singularize>>
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                { "message": "The <<resourcePathName|!singularize>> has been properly entered" }
+  collection-item:
+    description: Entity representing a <<resourcePathName|!singularize>>
+    get:
+      description: |
+        Get the <<resourcePathName|!singularize>>
+        with <<resourcePathName|!singularize>>Id =
+        {<<resourcePathName|!singularize>>Id}
+      responses:
+        200:
+          body:
+            application/json:
+        404:
+          body:
+            application/json:
+              example: |
+                {"message": "<<resourcePathName|!singularize>> not found" }
+
+# resourceTypes:
+#   thePosts:
+#     description: Collection of all the posts
+#     get:
+#       description: Get a list of all the posts & their data.
+#       responses:
+#         200:
+#           body:
+#             application/json:
+#   aPost:
+#     description: Create a new post
+#     # queryParameters:
+#     #   access_token:
+#     #     description: "The access token provided by the authentication application"
+#     #     example: AABBCCDD
+#     #     required: true
+#     #     type: string
+#     body:
+#       application/json:
+#         type: page
+#     responses:
+#       200:
+#         body:
+          # application/json:
+          #   example: |
+          #     {
+          #       "name": "hello",
+          #       "route": "/hello",
+          #       "filename": "testing.html",
+          #       "text": "the grand tour!\n",
+          #       "rendered": "<h1>the grand tour!\n</h1>"
+          #     }
+
 /posts:
+  type:
+    collection:
+      exampleCollection: |
+        [
+          {
+            "name": "another post",
+            "rendered": "<h1>async magic!</h1>"
+          },
+          {
+            "name": "hello",
+            "route": "/hello",
+            "filename": "testing.html",
+            "text": "the grand tour!\n",
+            "rendered": "<h1>the grand tour!\n</h1>"
+          }
+        ]
+      exampleItem: |
+        {
+          "name": "hello",
+          "route": "/hello",
+          "filename": "testing.html",
+          "text": "the grand tour!\n",
+          "rendered": "<h1>the grand tour!\n</h1>"
+        }
   get:
-    description: All the posts
-  #   queryParameters:
-  #     author:
-  #       displayName: Post Author
-  #       type: string
-  #       description: The author of the post
-  #       example: Robert Pirtle
-  #       required: false
-  #     page:
-  #       displayName: page
-  #       type: integer
-  #       description: Pagination page
-  #       example: 3
-  #       required: false
-  #     limit:
-  #       displayName: limit
-  #       type: integer
-  #       description: Number of posts to return per pagination page
-  #       default: 20
-  #       example: 50
-  #       required: false
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              {
-                "posts": [
-                  {
-                    "name": "another post",
-                    "rendered": "<h1>async magic!</h1>"
-                  },
-                  {
-                    "name": "hello",
-                    "route": "/hello",
-                    "filename": "testing.html",
-                    "text": "the grand tour!\n",
-                    "rendered": "<h1>the grand tour!\n</h1>"
-                  }
-                ]
-              }
+    queryParameters:
+      author:
+        displayName: Post Author
+        type: string
+        description: The author of the post
+        example: Robert Pirtle
+        required: false
+      page:
+        displayName: page
+        type: integer
+        description: Pagination page
+        example: 3
+        required: false
+      limit:
+        displayName: limit
+        type: integer
+        description: Number of posts to return per pagination page
+        default: 20
+        example: 50
+        required: false
+    # responses:
+    #   200:
+    #     body:
+    #       application/json:
+    #         example: |
+    #           [
+    #             {
+    #               "name": "another post",
+    #               "rendered": "<h1>async magic!</h1>"
+    #             },
+    #             {
+    #               "name": "hello",
+    #               "route": "/hello",
+    #               "filename": "testing.html",
+    #               "text": "the grand tour!\n",
+    #               "rendered": "<h1>the grand tour!\n</h1>"
+    #             }
+    #           ]
       # 400:
       #   body:
       #     application/json:
@@ -63,20 +169,16 @@ version: v0
   #       required: true
 
   /{postId}:
-    get:
-      description: The data for a specific post
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {
-                  "name": "hello",
-                  "route": "/hello",
-                  "filename": "testing.html",
-                  "text": "the grand tour!\n",
-                  "rendered": "<h1>the grand tour!\n</h1>"
-                }
+    type:
+      collection-item:
+        exampleItem: |
+          {
+            "name": "hello",
+            "route": "/hello",
+            "filename": "testing.html",
+            "text": "the grand tour!\n",
+            "rendered": "<h1>the grand tour!\n</h1>"
+          }
     # put:
     #   queryParameters:
     #     access_token:

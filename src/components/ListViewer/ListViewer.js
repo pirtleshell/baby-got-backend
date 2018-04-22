@@ -12,11 +12,16 @@ class App extends React.Component {
     super(props);
 
     this.changeContent = this.changeContent.bind(this);
+    this.watchLeftRight = this.watchLeftRight.bind(this);
     this.state = {
       display: 'welcome!',
       items: dummyPosts.map(keyPosts),
       currentPost: {key: -1}
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keypress', this.watchLeftRight);
   }
 
   changeContent(post) {
@@ -29,9 +34,29 @@ class App extends React.Component {
     else
     {
       console.log('unable to render!')
-      display = `<h1>unable to render that post<h1><pre>${JSON.stringify(post, undefined, 2)}</pre>`;
+      display = `<h1>unable to render that post<h1><pre>${JSON.stringify(post, 2)}</pre>`;
     }
     this.setState({ display, currentPost: post });
+  }
+
+  watchLeftRight(e) {
+    let right = e.keyCode === 39;
+    let left = e.keyCode === 37;
+    if(left || right)
+    {
+      // find current page index
+      const currIndex = this.state.items.map(item => item.key).indexOf(this.state.currentPost.key);
+      const extra = right ? 1 : -1;
+      let newPageIndex = currIndex + extra;
+
+      if(newPageIndex >= this.state.items.length)
+        newPageIndex = 0;
+      else if(newPageIndex < 0)
+        newPageIndex = this.state.items.length - 1;
+
+      const newPost = this.state.items[newPageIndex];
+      this.changeContent(newPost);
+    }
   }
 
   render() {

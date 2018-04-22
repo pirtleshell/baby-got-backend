@@ -9,8 +9,8 @@ class PostList extends React.Component {
     super(props);
   }
 
-render() {
-    const { posts, onPostClick } = this.props;
+  render() {
+    const { posts, onPostClick, selectedKey } = this.props;
 
     return (
       <ul id='posts_list'>
@@ -21,6 +21,7 @@ render() {
               key={key}
               post={post}
               clickHandler={onPostClick}
+              selected={selectedKey === key}
             />
         )})}
       </ul>

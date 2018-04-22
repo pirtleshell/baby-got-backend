@@ -5,13 +5,17 @@ import PostList from './PostList';
 // test data
 import dummyPosts from '../../../test/dummyPosts';
 
+const keyPosts = (item, i) => {item.key = i; return item};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.changeContent = this.changeContent.bind(this);
     this.state = {
-      display: 'welcome!'
+      display: 'welcome!',
+      items: dummyPosts.map(keyPosts),
+      currentPost: {key: -1}
     }
   }
 
@@ -25,9 +29,9 @@ class App extends React.Component {
     else
     {
       console.log('unable to render!')
-      display = 'unable to render that post';
+      display = `<h1>unable to render that post<h1><pre>${JSON.stringify(post, undefined, 2)}</pre>`;
     }
-    this.setState({ display });
+    this.setState({ display, currentPost: post });
   }
 
   render() {
@@ -36,8 +40,9 @@ class App extends React.Component {
     return (
           <div id='posts'>
             <PostList
-              posts={dummyPosts}
+              posts={this.state.items}
               onPostClick={this.changeContent}
+              selectedKey={this.state.currentPost.key}
             />
             <div id='post_display'
               dangerouslySetInnerHTML={{__html: this.state.display}}

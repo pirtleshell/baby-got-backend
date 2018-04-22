@@ -16,14 +16,18 @@ class ListBlock extends React.Component {
   }
 
   render() {
-    const { post, clickHandler } = this.props;
+    const { post, clickHandler, selected } = this.props;
 
     if(!post)
       return;
 
+    let className = 'posts_listblock';
+    if(selected)
+      className += ' selected';
+
     return (
       <a onClick={this.onBlockClick}>
-        <li className='posts_listblock'>
+        <li className={className}>
           {post.name}
         </li>
       </a>

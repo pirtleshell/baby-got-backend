@@ -60,6 +60,10 @@ html,body {
   color: #fff
 }
 
+.selected {
+  background: teal;
+}
+
 /* POST DISPLAY */
 #post_display {
   flex: 1;

@@ -24,27 +24,6 @@ module.exports = function(options) {
   else
     throw new BabyGotError('no pageSpecs found')
 
-  pageSpecs.forEach(page => {
-    bbgbe.get(page.route, (req, res) => {
-      const contentType = page.contentType || 'text/html; charset=utf-8';
-      console.log(contentType)
-      let { filename, render } = page;
-
-      if(filename) {
-        fs.readFile(filename, (error, contents) => {
-          if(error)
-            return res.send(error)
-          contents = contents.toString();
-          const html = render ? render(contents) : contents;
-
-          res.status(200);
-          res.header('Content-Type: ' + contentType);
-          res.send(html);
-        })
-      }
-    });
-  });
-
   //////////////////
   // Fixed Routes //
   //////////////////

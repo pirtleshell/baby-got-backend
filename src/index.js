@@ -2,27 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import routes from './routes';
 import App from './components/App';
-import Dashboard from './routes/Dashboard';
 
 import css from './style.css';
 
-// import Html from './components/Html';
-
-class MainContent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <App>
-        <Dashboard />
-      </App>
-    );
-  }
-}
-
-
-
-ReactDOM.render(<MainContent />, document.getElementById('mainContent'));
+ReactDOM.render(<App routes={routes} />, document.getElementById('mainContent'));

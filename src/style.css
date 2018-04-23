@@ -74,3 +74,22 @@ pre {
   overflow-y: auto;
   padding-left: 25px
 }
+
+/* EDITOR */
+#editor_container {
+  display: flex;
+  width: 100%;
+}
+
+.half_window {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+#editor {
+  background-color: blueviolet;
+}
+
+#editor_display {
+  background-color: green;
+}

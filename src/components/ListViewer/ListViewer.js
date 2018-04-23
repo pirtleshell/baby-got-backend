@@ -2,6 +2,9 @@
 import React from 'react';
 import PostList from './PostList';
 
+import Api from '../../api';
+const api = new Api();
+
 // test data
 import dummyPosts from '../../../test/dummyPosts';
 
@@ -28,12 +31,11 @@ class App extends React.Component {
 
   fetchMore() {
     console.log('fetching more posts');
-    fetch('http://localhost:3000/admin/api/posts').then(res => res.json())
-      .then(posts => {
-        this.setState(prevState => ({
-          items: prevState.items.concat(posts).map(keyPosts)
-        }))
-      })
+    api.get('/posts').then(posts => {
+      this.setState(prevState => ({
+        items: prevState.items.concat(posts).map(keyPosts)
+      }))
+    });
   }
 
   changeContent(post) {

@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "webpack --mode development --output ./public/main.js",
     "build": "webpack --mode production --output ./public/main.js",
+    "build-docs": "raml2html api/api.raml > api/docs.html",
     "test": "mocha test/index.js"
   },
   "dependencies": {

@@ -1,9 +1,14 @@
 
-const express = require('express');
 const fs = require('fs');
+const path = require('path');
+const express = require('express');
+
+const here = filename => path.join(__dirname, filename);
 
 module.exports = posts => {
   const api = express.Router();
+
+  api.use('/docs', express.static(here('docs.html')));
 
   api.get('/posts', (req, res) => {
     const stuff = {
@@ -11,27 +16,7 @@ module.exports = posts => {
         {name: 'another post', rendered: '<h1>async magic!</h1>'},
       ]
     };
-
-    posts.forEach(post => {
-      try {
-        if(post.filename)
-          post.text = fs.readFileSync(post.filename).toString();
-      } catch(e) {
-        if(e.code === 'ENOENT')
-        {
-          const errorMsg = `file ${post.filename} not found for post '${post.name}'`;
-          console.warn(errorMsg);
-          post.rendered = errorMsg
-        }
-        else
-          throw e;
-      }
-
-      if(post.render)
-        post.rendered = post.render(post.text, post);
-
-      stuff.posts.push(post);
-    });
+    stuff.concat(posts);
 
     res.json(stuff);
   });

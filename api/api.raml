@@ -1,7 +1,7 @@
 #%RAML 1.0
 ---
 title: BabyGotBackend PageSpecs
-baseUri: /admin/api/
+baseUri: /admin/api
 version: v0
 
 types:
@@ -21,6 +21,7 @@ resourceTypes:
         200:
           body:
             application/json:
+          type: <<resourcePathName|!singularize>>
     post:
       description: |
         Add a new <<resourcePathName|!singularize>>
@@ -50,6 +51,7 @@ resourceTypes:
         200:
           body:
             application/json:
+              type: <<resourcePathName|!singularize>>
         404:
           body:
             application/json:
@@ -179,6 +181,9 @@ resourceTypes:
             "text": "the grand tour!\n",
             "rendered": "<h1>the grand tour!\n</h1>"
           }
+    uriParameters:
+      postId:
+        type: number
     # put:
     #   queryParameters:
     #     access_token:

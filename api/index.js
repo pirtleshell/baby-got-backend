@@ -11,14 +11,11 @@ module.exports = posts => {
   api.use('/docs', express.static(here('docs.html')));
 
   api.get('/posts', (req, res) => {
-    const stuff = {
-      posts:[
-        {name: 'another post', rendered: '<h1>async magic!</h1>'},
-      ]
-    };
-    stuff.concat(posts);
+    const stuff = [
+      {name: 'another post', rendered: '<h1>async magic!</h1>'},
+    ];
 
-    res.json(stuff);
+    res.json(stuff.concat(posts));
   });
 
   return api

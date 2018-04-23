@@ -29,11 +29,9 @@ class App extends React.Component {
   fetchMore() {
     console.log('fetching more posts');
     fetch('http://localhost:3000/admin/api/posts').then(res => res.json())
-      .then(data => {
-        console.log(data);
-
+      .then(posts => {
         this.setState(prevState => ({
-          items: prevState.items.concat(data.posts).map(keyPosts)
+          items: prevState.items.concat(posts).map(keyPosts)
         }))
       })
   }

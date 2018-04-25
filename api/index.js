@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const here = filename => path.join(__dirname, filename);
 
 module.exports = posts => {
+  const getPostById = (req, id) => posts.filter(p => (id == p.id));
   const api = express.Router();
 
   api.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +27,16 @@ module.exports = posts => {
   api.post('/posts', (req, res) => {
     console.log(req.body)
     res.json({message: 'post added'});
-  })
+  });
+
+  api.get('/posts/:id', (req, res) => {
+    const post = getPostById(req.params.id);
+    if(!post) {
+      res.status(404);
+      res.send({message: 'post not found'});
+    }
+    res.json(post);
+  });
 
   return api
 }

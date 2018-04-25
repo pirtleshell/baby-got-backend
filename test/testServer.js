@@ -14,26 +14,34 @@ let fauxMdRender = (text, post) => {
 
 const app = express();
 
-app.use('/admin', babyGotBackend([
+
+const posts = [
   {
+    id: 1,
     name: 'hello',
     route: '/hello',
     filename: here('testing.html'),
     render: text => `<h1>${text}</h1>`
   },
   {
+    id: 2,
     name: 'example markdown',
     route: '/example',
     filename: here('examplePost.md'),
     render: fauxMdRender
   },
   {
+    id: 'wafflestheverb',
     name: 'example file not found',
     route: 'ooojson',
     filename: here('sokd'),
     contentType: 'json'
   }
-]));
+];
+
+app.use('/admin', babyGotBackend(posts));
+
+
 
 app.get('*', (req, res) => {
   res.send('testServer.js')

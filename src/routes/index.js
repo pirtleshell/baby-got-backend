@@ -1,12 +1,12 @@
 
 import React from 'react';
 import Dashboad from './dashboard';
-import Editor from './editor';
+import Edit from './edit';
 
 export default [
   {
-    route: '/editor',
-    component: (<Editor />)
+    route: '/edit/*',
+    component: (<Edit />)
   },
   {
     route: '/',

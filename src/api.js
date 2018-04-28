@@ -1,10 +1,10 @@
 
-class api {
+class Api {
   constructor(options) {
     if(options instanceof String)
       this.baseUri = options;
     else
-      this.baseUri = (options || {}).baseUri || 'http://localhost:3000/admin/api';
+      this.baseUri = (options || {}).baseUri || 'http://localhost:3000/admin/api/';
   }
 
   get(endpoint) {
@@ -25,4 +25,4 @@ class api {
 }
 
 
-export default api;
+export default Api;

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import PostList from './PostList';
+import RenderedPost from '../RenderedPost';
 
 import Api from '../../api';
 const api = new Api();
@@ -18,15 +19,18 @@ class App extends React.Component {
     this.fetchMore = this.fetchMore.bind(this);
     this.watchLeftRight = this.watchLeftRight.bind(this);
     this.state = {
-      display: 'welcome!',
       items: dummyPosts.map(keyPosts),
-      currentPost: {key: -1}
+      currentPost: {key: -1, rendered: 'welcome!'},
     }
   }
 
   componentDidMount() {
     window.addEventListener('keypress', this.watchLeftRight);
     this.fetchMore();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keypress', this.watchLeftRight);
   }
 
   fetchMore() {
@@ -40,18 +44,7 @@ class App extends React.Component {
 
   changeContent(post) {
     console.log('changing content!')
-    let display;
-    if(post.rendered)
-      display = post.rendered;
-    else if(post.render)
-      display = post.render(post);
-    else
-    {
-      console.log('unable to render!')
-      display = '<h1>unable to render that post</h1>' +
-        `<pre>${JSON.stringify(post, undefined, 2)}</pre>`;
-    }
-    this.setState({ display, currentPost: post });
+    this.setState({ currentPost: post });
   }
 
   watchLeftRight(e) {
@@ -85,8 +78,9 @@ class App extends React.Component {
               selectedKey={this.state.currentPost.key}
               fetchMore={this.fetchMore}
             />
-            <div id='post_display'
-              dangerouslySetInnerHTML={{__html: this.state.display}}
+            <RenderedPost
+              id='post_display'
+              post={this.state.currentPost}
             />
           </div>
     );

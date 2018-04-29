@@ -11,12 +11,10 @@ class RenderedPost extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mounted')
     this.renderPost(this.props.post);
   }
 
   componentDidUpdate(prevProps) {
-    console.log('updated')
     // questionable condition....?
     if(prevProps.post !== this.props.post)
       this.renderPost(this.props.post);
@@ -41,7 +39,6 @@ class RenderedPost extends React.Component {
 
   render() {
     const { className, id } = this.props;
-    console.log(this.props.post)
     return (
       <div id={id} className={className}
         dangerouslySetInnerHTML={{__html: this.state.content}}
@@ -51,7 +48,7 @@ class RenderedPost extends React.Component {
 }
 
 RenderedPost.propTypes = {
-  post: PropTypes.object,
+  post: PropTypes.object.isRequired,
   className: PropTypes.string,
   id: PropTypes.string,
 };

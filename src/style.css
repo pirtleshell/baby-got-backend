@@ -91,5 +91,6 @@ pre {
 }
 
 #editor_display {
+  padding-left: 15px;
   background-color: green;
 }

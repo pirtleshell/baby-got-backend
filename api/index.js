@@ -5,6 +5,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const here = filename => path.join(__dirname, filename);
+const renderPost = post => {
+  let text = post.rendered;
+  if(post.render)
+    text = post.render(post.text)
+  else if(post.text)
+    text = post.text;
+
+  return text;
+}
 
 module.exports = posts => {
   const getPostById = id => posts.filter(p => (id == p.id))[0];
@@ -38,21 +47,23 @@ module.exports = posts => {
   });
 
   // Update a post
-  api.post('/posts/:id', (req, res) => {
+  api.post('/posts/:id/content', (req, res) => {
     const post = getPostById(req.params.id);
     if(!post)
       return send404('post not found');
-    if(!post.filename)
-      return res.json({message: 'no filename found'});
-    if(req.body.text == undefined)
-      return res.json({message: 'no text given'})
 
-    // TODO: versioning
-    fs.writeFile(post.filename, req.body.text, (error, data) => {
-      if(error)
-        return res.json({error})
-      res.send({message: 'success'});
-    });
+    post.text = req.body.text;
+    post.rendered = renderPost(post);
+
+    // TODO: accept save func override
+    if(post.filename) {
+      fs.writeFile(post.filename, req.body.text, (error, data) => {
+        if(error)
+          return res.json({error});
+        res.json(post);
+      });
+    } else
+      res.json(post);
   });
 
   return api

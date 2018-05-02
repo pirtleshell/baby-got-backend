@@ -39,18 +39,20 @@ class Edit extends React.Component {
     api.get(`posts/${id}`).then(post => {
       this.setState({
         post,
+        currentText: post.text,
         postIsLoaded: true,
       });
     });
   }
 
   onEditorChange(newText) {
-    // TODO: post (& save?) the data and get rendered content from server
-    const updatedPost = Object.assign({}, this.state.post,
-      {text: newText}
-    );
-    updatedPost.rendered = fauxMdRender(updatedPost);
-    this.setState({post: updatedPost});
+    if(this.state.currentText !== newText) {
+      const data = {text: newText};
+      const updateUrl = `posts/${this.state.post.id}/content`;
+      api.post(updateUrl, data).then(updatedPost => {
+        this.setState({post: updatedPost, currentText: newText});
+      });
+    }
   }
 
   render() {

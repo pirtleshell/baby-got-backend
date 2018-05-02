@@ -8,13 +8,11 @@ class Api {
   }
 
   get(endpoint) {
-    console.log(`getting ${this.baseUri}${endpoint}`)
-    return fetch(this.baseUri + endpoint).then(res => res.json());
+    return fetch(this.url(endpoint)).then(res => res.json());
   }
 
   post(endpoint, data) {
-    console.log(`posting to ${this.baseUri}${endpoint}`)
-    return fetch(this.baseUri + endpoint, {
+    return fetch(this.url(endpoint), {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -22,6 +20,8 @@ class Api {
       }
     }).then(res => res.json());
   }
+
+  url(endpoint) { return this.baseUri + endpoint; }
 }
 
 

@@ -7,8 +7,10 @@ const bodyParser = require('body-parser');
 const here = filename => path.join(__dirname, filename);
 const renderPost = post => {
   let text = post.rendered;
-  if(post.render)
-    text = post.render(post.text)
+  if(post.render) {
+    try { text = post.render(post.text, post); }
+    catch (e) { text = `<h1>error rendering post:</h1><p>${e.message}</p>`; }
+  }
   else if(post.text)
     text = post.text;
 

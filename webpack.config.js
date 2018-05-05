@@ -40,8 +40,16 @@ module.exports = {
       {
         test: /\.md$/,
         use: 'raw-loader'
-      }
+      },
 
+      // IMAGES & etc.
+      {
+          test: /\.svg/,
+          use: {
+              loader: 'svg-url-loader',
+              options: { noquotes: true, limit: 1024 }
+          }
+      }
     ]
   },
   plugins: [

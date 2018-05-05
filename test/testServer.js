@@ -6,9 +6,8 @@ const babyGotBackend = require('../index');
 const here = (filename) => path.join(__dirname, filename);
 let fauxMdRender = (text, post) => {
   if(text) {
-    return '<!DOCTYPE html><html><head></head><body>' +
-      `<h1>${post.name}</h1>` +
-      text.split('\n').map(line => `<p>${line}</p>`).join('') + '</body></html>';
+    return `<h1>${post.name}</h1>` +
+      text.split('\n').map(line => `<p>${line}</p>`).join('');
   }
 };
 

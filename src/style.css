@@ -68,6 +68,22 @@ pre {
   background: teal;
 }
 
+.listBlockButtons {
+  display: inline;
+  float: right;
+  padding-right: 10px;
+}
+
+.listBlockButton {
+  display: inline;
+  float: right;
+  padding: 0 6px;
+}
+
+.listBlockButton:hover {
+  background-color: #bad;
+}
+
 /* POST DISPLAY */
 #post_display {
   flex: 1;

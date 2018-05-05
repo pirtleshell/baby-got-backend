@@ -78,10 +78,9 @@ class App extends React.Component {
               selectedKey={this.state.currentPost.key}
               fetchMore={this.fetchMore}
             />
-            <RenderedPost
-              id='post_display'
-              post={this.state.currentPost}
-            />
+            <div id='post_display'>
+              <RenderedPost post={this.state.currentPost} />
+            </div>
           </div>
     );
   }

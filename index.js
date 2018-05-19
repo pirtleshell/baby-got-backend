@@ -14,30 +14,29 @@ module.exports = function(options) {
   // Process Pages //
   ///////////////////
   let pageSpecs;
-  if(Array.isArray(options))
-  {
+  if(Array.isArray(options)) {
     pageSpecs = options;
     options = {};
   }
   else if((options || {}).pageSpecs)
     pageSpecs = options.pageSpecs;
   else
-    throw new BabyGotError('no pageSpecs found')
+    throw new BabyGotError('no pageSpecs found');
 
   // read files & render content
   pageSpecs.forEach(page => {
+    if(page.template)
+      page.filename = page.template;
     try {
       if(page.filename)
         page.text = fs.readFileSync(page.filename).toString();
     } catch(e) {
-      if(e.code === 'ENOENT')
-      {
+      if(e.code === 'ENOENT') {
         const errorMsg = `file ${page.filename} not found for page '${page.name}'`;
         console.warn(errorMsg);
-        page.rendered = errorMsg
+        page.rendered = errorMsg;
       }
-      else
-        throw e;
+      else throw e;
     }
 
     if(page.render)

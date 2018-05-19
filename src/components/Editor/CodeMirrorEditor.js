@@ -27,6 +27,7 @@ class CodeMirrorEditor extends React.Component {
     };
     const domElement = findDOMNode(this);
     this.codemirror = CodeMirror(domElement, codeMirrorOptions);
+    document.querySelector('.CodeMirror').style = 'height: 100%';
 
     this.codemirror.on('change', self => {
       console.log('codemirror change')
@@ -49,7 +50,13 @@ class CodeMirrorEditor extends React.Component {
 
   render() {
     // see componentDidMount()
-    return (<div />);
+
+
+    const style = {
+      height: 'calc(100% - 20px)',
+      flex: 1,
+    };
+    return (<div style={style} />);
   }
 }
 

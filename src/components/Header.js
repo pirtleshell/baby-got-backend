@@ -12,8 +12,8 @@ class Header extends React.Component {
 
     return (
       <div id='app_header'>
-        <div style={{float: 'right'}}>
-          <NavLink to='/'>Home</NavLink>
+        <div className='headerMenu'>
+          <NavLink to='/' className='headerMenuLink'>Home</NavLink>
         </div>
       </div>
     );

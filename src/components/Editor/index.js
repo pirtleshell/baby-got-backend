@@ -17,8 +17,12 @@ class Editor extends React.Component {
 
   render() {
     const { className, editorDidChange, editingText, filename } = this.props;
+    const editorStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+    }
     return (
-      <div id='editor' className={className}>
+      <div id='editor' className={className} style={editorStyle} >
         {filename && (<div>You're editing {filename}</div>)}
         <CodeMirrorEditor
           initialContent={this.initialContent}

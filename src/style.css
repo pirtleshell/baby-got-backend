@@ -30,6 +30,15 @@ pre {
   min-height: 35px;
 }
 
+.headerMenu {
+  font-size: larger;
+  padding: 10px 10px 3px;
+}
+
+.headerMenuLink {
+  padding: 0 5px;
+}
+
 #app_main {
   display: flex;
   min-height: calc(100% - 35px);

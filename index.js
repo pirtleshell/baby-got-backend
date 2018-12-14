@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const ReactDOM = require('react-dom/server');
 
@@ -56,7 +57,7 @@ module.exports = function(options) {
   ///////////////
   // Catch All //
   ///////////////
-  bbgbe.get('*', express.static('public'))
+  bbgbe.get('*', express.static(path.join(__dirname, 'public')))
 
   return bbgbe;
 }

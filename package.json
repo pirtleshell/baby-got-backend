@@ -16,7 +16,10 @@
   "dependencies": {
     "codemirror": "^5.37.0",
     "express": "^4.16.3",
-    "react-dom": "^16.3.1"
+    "got": "^9.4.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -24,15 +27,13 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
-    "css-loader": "^0.28.11",
+    "css-loader": "^2.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "raw-loader": "^0.5.1",
-    "react": "^16.3.1",
-    "react-router-dom": "^4.2.2",
     "style-loader": "^0.21.0",
     "svg-url-loader": "^2.3.2",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.15"
+    "webpack-cli": "^3.1.2"
   }
 }

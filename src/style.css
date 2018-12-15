@@ -69,6 +69,7 @@ pre {
 }
 
 .posts_listblock:hover {
+  cursor: pointer;
   background: blueviolet;
   color: #fff
 }

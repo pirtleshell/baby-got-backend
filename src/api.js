@@ -4,7 +4,7 @@ class Api {
     if(options instanceof String)
       this.baseUri = options;
     else
-      this.baseUri = (options || {}).baseUri || 'http://localhost:3000/admin/api/';
+      this.baseUri = (options || {}).baseUri || '/admin/api/';
   }
 
   get(endpoint) {

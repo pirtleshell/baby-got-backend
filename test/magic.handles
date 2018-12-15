@@ -1,0 +1,7 @@
+
+<h1>Hi there!</h1>
+  <p>I'm the handlebars file! I have the id '{{ id }}'.<p>
+
+<p>My name is '{{ name }}' and my data object has a deep property that says "{{ foo.bar }}"!<p>
+
+<p>Amazing, isn't it?<p>

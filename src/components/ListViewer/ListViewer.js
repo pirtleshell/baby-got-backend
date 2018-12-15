@@ -6,21 +6,20 @@ import RenderedPost from '../RenderedPost';
 import Api from '../../api';
 const api = new Api();
 
-// test data
-import dummyPosts from '../../../test/dummyPosts';
-
 const keyPosts = (item, i) => {item.key = i; return item};
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    let items = Array.isArray(props.items) ? props.items : [];
+
     this.changeContent = this.changeContent.bind(this);
     this.fetchMore = this.fetchMore.bind(this);
     this.watchLeftRight = this.watchLeftRight.bind(this);
     this.state = {
-      items: dummyPosts.map(keyPosts),
-      currentPost: {key: -1, rendered: 'welcome!'},
+      items: items.map(keyPosts),
+      currentItem: {key: -1, rendered: 'welcome!'},
     }
   }
 
@@ -44,16 +43,15 @@ class App extends React.Component {
 
   changeContent(post) {
     console.log('changing content!')
-    this.setState({ currentPost: post });
+    this.setState({ currentItem: post });
   }
 
   watchLeftRight(e) {
     let right = e.keyCode === 39;
     let left = e.keyCode === 37;
-    if(left || right)
-    {
+    if(left || right) {
       // find current page index
-      const currIndex = this.state.items.map(item => item.key).indexOf(this.state.currentPost.key);
+      const currIndex = this.state.items.map(item => item.key).indexOf(this.state.currentItem.key);
       const extra = right ? 1 : -1;
       let newPageIndex = currIndex + extra;
 
@@ -75,11 +73,11 @@ class App extends React.Component {
             <PostList
               posts={this.state.items}
               onPostClick={this.changeContent}
-              selectedKey={this.state.currentPost.key}
+              selectedKey={this.state.currentItem.key}
               fetchMore={this.fetchMore}
             />
             <div id='post_display'>
-              <RenderedPost post={this.state.currentPost} />
+              <RenderedPost post={this.state.currentItem} />
             </div>
           </div>
     );

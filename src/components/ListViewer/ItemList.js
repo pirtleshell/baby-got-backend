@@ -4,28 +4,29 @@ import PropTypes from 'prop-types';
 
 import ListBlock from './ListBlock';
 
-class PostList extends React.Component {
+class ItemList extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { posts, onPostClick, fetchMore, selectedKey } = this.props;
+    const { items, itemName, onItemClick, fetchMore, selectedKey } = this.props;
 
     return (
       <ul id='posts_list'>
-        {posts && posts.map((post, i) => {
-          const key = post.key ? post.key : i;
+        {items && items.map((item, i) => {
+          const key = item.key ? item.key : i;
           return (
             <ListBlock
               key={key}
-              post={post}
-              clickHandler={onPostClick}
+              item={item}
+              itemName={itemName}
+              clickHandler={onItemClick}
               selected={selectedKey === key}
             />
         )})}
         {fetchMore &&
-          <ListBlock post={{name: 'Load More'}}
+          <ListBlock item={{name: 'Load More'}}
             clickHandler={fetchMore}
           />}
       </ul>
@@ -33,8 +34,9 @@ class PostList extends React.Component {
   }
 };
 
-PostList.propTypes = {
+ItemList.propTypes = {
+  itemName: PropTypes.string,
   items: PropTypes.array
 };
 
-export default PostList;
+export default ItemList;

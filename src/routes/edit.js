@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Editor from '../components/Editor';
-import RenderedPost from '../components/RenderedPost';
+import RenderedView from '../components/RenderedView';
 
 import Api from '../api';
 const api = new Api();
@@ -69,10 +69,10 @@ class Edit extends React.Component {
           editorDidChange={this.onEditorChange}
           filename={this.state.post.filename}
         />
-        <RenderedPost
+        <RenderedView
           id='editor_display'
           className='half_window'
-          post={this.state.post}
+          item={this.state.post}
         />
       </div>
     );

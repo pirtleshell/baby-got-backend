@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class RenderedPost extends React.Component {
+class RenderedView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,28 +11,28 @@ class RenderedPost extends React.Component {
   }
 
   componentDidMount() {
-    this.renderPost(this.props.post);
+    this.renderItem(this.props.item);
   }
 
   componentDidUpdate(prevProps) {
     // questionable condition....?
-    if(prevProps.post !== this.props.post)
-      this.renderPost(this.props.post);
+    if(prevProps.item !== this.props.item)
+      this.renderItem(this.props.item);
   }
 
-  renderPost(post) {
-    if(!post)
-      return this.setState({content: `<p>no post to render</p>`});
+  renderItem(item) {
+    if(!item)
+      return this.setState({content: `<p>no item to render</p>`});
 
     let content;
-    if(post.rendered)
-      content = post.rendered;
-    else if(post.render)
-      content = post.render(post);
+    if(item.rendered)
+      content = item.rendered;
+    else if(item.render)
+      content = item.render(item);
     else
     {
-      content = '<h1>unable to render that post</h1>' +
-        `<pre>${JSON.stringify(post, undefined, 2)}</pre>`;
+      content = '<h1>unable to render that item</h1>' +
+        `<pre>${JSON.stringify(item, undefined, 2)}</pre>`;
     }
     this.setState({ content });
   }
@@ -47,10 +47,10 @@ class RenderedPost extends React.Component {
   }
 }
 
-RenderedPost.propTypes = {
-  post: PropTypes.object.isRequired,
+RenderedView.propTypes = {
+  item: PropTypes.object.isRequired,
   className: PropTypes.string,
   id: PropTypes.string,
 };
 
-export default RenderedPost;
+export default RenderedView;

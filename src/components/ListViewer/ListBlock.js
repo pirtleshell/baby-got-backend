@@ -13,27 +13,34 @@ class ListBlock extends React.Component {
 
   onBlockClick(event) {
     if(this.props.clickHandler)
-      this.props.clickHandler(this.props.post);
+      this.props.clickHandler(this.props.item);
   }
 
   render() {
-    const { post, clickHandler, selected } = this.props;
+    const { item, itemName, clickHandler, selected } = this.props;
 
-    if(!post)
+    if(!item)
       return;
 
     const buttons = [];
-    if(post.id)
-      buttons.push( {iconUri: pencil, href: `#/edit/${post.id}`, name: 'Edit'} );
+    if(item.id)
+      buttons.push( {iconUri: pencil, href: `#/edit/${item.id}`, name: 'Edit'} );
 
     let className = 'posts_listblock';
     if(selected)
       className += ' selected';
 
+    let blockText = item.name;
+    if(blockText == null)
+    {
+      blockText = `Untitled ${itemName}`;
+      blockText += item.id ? ` (${item.id})` : '';
+    }
+
     return (
       <a onClick={this.onBlockClick}>
         <li className={className}>
-          {post.name}
+          {blockText}
           <ListBlockButtons buttons={buttons} />
         </li>
       </a>
@@ -42,7 +49,8 @@ class ListBlock extends React.Component {
 };
 
 ListBlock.propTypes = {
-  post: PropTypes.object,
+  item: PropTypes.object,
+  itemName: PropTypes.string,
   clickHandler: PropTypes.func,
 };
 

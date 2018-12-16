@@ -8,8 +8,8 @@ class Dashboard extends React.Component {
 
   render () {
     return (
-      <ListViewer />
-    )
+      <ListViewer itemName='Post' />
+    );
   }
 }
 

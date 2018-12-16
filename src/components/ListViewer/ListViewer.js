@@ -1,14 +1,15 @@
 
 import React from 'react';
-import PostList from './PostList';
-import RenderedPost from '../RenderedPost';
+import PropTypes from 'prop-types';
+import ItemList from './ItemList';
+import RenderedView from '../RenderedView';
 
 import Api from '../../api';
 const api = new Api();
 
-const keyPosts = (item, i) => {item.key = i; return item};
+const setItemKey = (item, i) => {item.key = i; return item};
 
-class App extends React.Component {
+class ListViewer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +19,7 @@ class App extends React.Component {
     this.fetchMore = this.fetchMore.bind(this);
     this.watchLeftRight = this.watchLeftRight.bind(this);
     this.state = {
-      items: items.map(keyPosts),
+      items: items.map(setItemKey),
       currentItem: {key: -1, rendered: 'welcome!'},
     }
   }
@@ -36,14 +37,14 @@ class App extends React.Component {
     console.log('fetching more posts');
     api.get('/posts').then(posts => {
       this.setState(prevState => ({
-        items: prevState.items.concat(posts).map(keyPosts)
+        items: prevState.items.concat(posts).map(setItemKey)
       }))
     });
   }
 
-  changeContent(post) {
+  changeContent(item) {
     console.log('changing content!')
-    this.setState({ currentItem: post });
+    this.setState({ currentItem: item });
   }
 
   watchLeftRight(e) {
@@ -60,28 +61,37 @@ class App extends React.Component {
       else if(newPageIndex < 0)
         newPageIndex = this.state.items.length - 1;
 
-      const newPost = this.state.items[newPageIndex];
-      this.changeContent(newPost);
+      const newItem = this.state.items[newPageIndex];
+      this.changeContent(newItem);
     }
   }
 
   render() {
-    const { children } = this.props;
+    const { itemName } = this.props;
 
     return (
           <div id='posts'>
-            <PostList
-              posts={this.state.items}
-              onPostClick={this.changeContent}
+            <ItemList
+              itemName={itemName}
+              items={this.state.items}
+              onItemClick={this.changeContent}
               selectedKey={this.state.currentItem.key}
               fetchMore={this.fetchMore}
             />
             <div id='post_display'>
-              <RenderedPost post={this.state.currentItem} />
+              <RenderedView item={this.state.currentItem} />
             </div>
           </div>
     );
   }
 }
 
-export default App;
+ListViewer.propTypes = {
+  itemName: PropTypes.string,
+};
+
+ListViewer.defaultProps = {
+  itemName: 'Item',
+};
+
+export default ListViewer;

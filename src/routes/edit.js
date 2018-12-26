@@ -6,25 +6,6 @@ import RenderedView from '../components/RenderedView';
 import Api from '../api';
 const api = new Api();
 
-let fauxMdRender = post => {
-  const text = post.text;
-  if(text) {
-    return `<h1>${post.name}</h1>` +
-      text.split('\n').map(line => {
-        let tag = 'p';
-
-        let hlevel = 0;
-        while(line[hlevel++] === '#');
-        hlevel -= 1;
-        if(hlevel)
-          tag = `h${hlevel}`;
-
-        return `<${tag}>${line}</${tag}>`
-      }).join('') + '</body></html>';
-  }
-  return post.rendered;
-};
-
 class Edit extends React.Component {
   constructor(props) {
     super(props);

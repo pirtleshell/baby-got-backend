@@ -10,10 +10,10 @@ class ItemList extends React.Component {
   }
 
   render() {
-    const { items, itemName, onItemClick, fetchMore, selectedKey } = this.props;
+    const { className, items, itemName, onItemClick, fetchMore, selectedKey } = this.props;
 
     return (
-      <ul id='posts_list'>
+      <ul className={className}>
         {items && items.map((item, i) => {
           const key = item.key ? item.key : i;
           return (

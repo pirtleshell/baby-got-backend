@@ -43,7 +43,7 @@ class Edit extends React.Component {
       return (<p>Fetching Post...</p>);
 
     return (
-      <div id='editor_container'>
+      <div className='editor_container'>
         <Editor
           className='half_window'
           editingText={this.state.post.text}
@@ -51,8 +51,7 @@ class Edit extends React.Component {
           filename={this.state.post.filename}
         />
         <RenderedView
-          id='editor_display'
-          className='half_window'
+          className='editor_display half_window'
           item={this.state.post}
         />
       </div>

@@ -72,13 +72,14 @@ class ListViewer extends React.Component {
     return (
           <div id='posts'>
             <ItemList
+              className='posts_list'
               itemName={itemName}
               items={this.state.items}
               onItemClick={this.changeContent}
               selectedKey={this.state.currentItem.key}
               fetchMore={this.fetchMore}
             />
-            <div id='post_display'>
+            <div className='post_display'>
               <RenderedView item={this.state.currentItem} />
             </div>
           </div>

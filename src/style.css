@@ -52,7 +52,7 @@ pre {
 
 
 /* POST LIST */
-#posts_list {
+.posts_list {
   margin: 0;
   flex: .5;
   overflow-y: auto;
@@ -95,14 +95,14 @@ pre {
 }
 
 /* POST DISPLAY */
-#post_display {
+.post_display {
   flex: 1;
   overflow-y: auto;
   padding-left: 25px
 }
 
 /* EDITOR */
-#editor_container {
+.editor_container {
   display: flex;
   width: 100%;
 }
@@ -112,11 +112,11 @@ pre {
   overflow-y: scroll;
 }
 
-#editor {
+.editor {
   background-color: blueviolet;
 }
 
-#editor_display {
+.editor_display {
   padding-left: 15px;
   background-color: green;
 }

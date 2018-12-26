@@ -73,6 +73,10 @@ const posts = [
     render: pseudoHandlebars
   }
 ];
+let attachSubitems = post => {
+  post.subitems = [...Array(5)].map((t,i) => ({id: post.id + '.' + i, name: `Subblock ${post.id}.${i}`}));
+};
+posts.forEach(attachSubitems);
 
 app.use('/admin', babyGotBackend(posts));
 

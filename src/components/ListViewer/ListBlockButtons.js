@@ -9,7 +9,7 @@ class ListBlockButtons extends React.PureComponent {
 
     if(!buttons) return;
 
-    const blockButtons = buttons.map((button, key) => (
+    const blockButtons = buttons.reverse().map((button, key) => (
       <ListBlockButton key={key} {...button} />
     ));
 

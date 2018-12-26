@@ -1,6 +1,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import ItemList from './ItemList';
 import ListBlockButtons from './ListBlockButtons';
 
 import pencil from '../icons/pencil.svg';
@@ -9,6 +11,10 @@ class ListBlock extends React.Component {
   constructor(props) {
     super(props);
     this.onBlockClick = this.onBlockClick.bind(this);
+    this.toggleExpansion = this.toggleExpansion.bind(this);
+    this.state = {
+      expanded: false,
+    };
   }
 
   onBlockClick(event) {
@@ -16,15 +22,26 @@ class ListBlock extends React.Component {
       this.props.clickHandler(this.props.item);
   }
 
+  toggleExpansion() {
+    this.setState(prevProps => {
+      return {expanded: !prevProps.expanded}
+    });
+  }
+
   render() {
     const { item, itemName, clickHandler, selected } = this.props;
 
-    if(!item)
-      return;
+    if(!item) return;
 
     const buttons = [];
     if(item.id)
       buttons.push( {iconUri: pencil, href: `#/edit/${item.id}`, name: 'Edit'} );
+
+    let subitems = [];
+    if(item.subitems) {
+      buttons.push( {text: '➕', 'func': this.toggleExpansion} );
+      subitems = item.subitems;
+    }
 
     let className = 'posts_listblock';
     if(selected)
@@ -38,12 +55,18 @@ class ListBlock extends React.Component {
     }
 
     return (
-      <a onClick={this.onBlockClick}>
-        <li className={className}>
-          {blockText}
-          <ListBlockButtons buttons={buttons} />
-        </li>
-      </a>
+      <div>
+        <a onClick={this.onBlockClick}>
+          <li className={className}>
+            {blockText}
+            <ListBlockButtons buttons={buttons} />
+          </li>
+        </a>
+        {this.state.expanded && subitems.length &&
+          <ItemList items={subitems}
+            onItemClick={this.props.clickHandler}
+          />}
+      </div>
     );
   }
 };
@@ -53,5 +76,8 @@ ListBlock.propTypes = {
   itemName: PropTypes.string,
   clickHandler: PropTypes.func,
 };
+
+
+
 
 export default ListBlock;

@@ -25,7 +25,7 @@ module.exports = function(options) {
     throw new BabyGotError('no pageSpecs found');
 
   // read files & render content
-  pageSpecs.forEach(page => {
+  const processSpec = page => {
     if(page.template)
       page.filename = page.template;
     try {
@@ -42,7 +42,12 @@ module.exports = function(options) {
 
     if(page.render)
       page.rendered = page.render(page.text, page);
-  });
+
+    if(page.subitems)
+      page.subitems.forEach(processSpec);
+  }
+
+  pageSpecs.forEach(processSpec);
 
   //////////////////
   // Fixed Routes //

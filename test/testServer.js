@@ -74,7 +74,7 @@ const posts = [
   }
 ];
 let attachSubitems = post => {
-  post.subitems = [...Array(5)].map((t,i) => ({id: post.id + '.' + i, name: `Subblock ${post.id}.${i}`}));
+  post.subitems = [...Array(5)].map((t,i) => ({name: `Subblock ${post.id}.${i}`}));
 };
 posts.forEach(attachSubitems);
 

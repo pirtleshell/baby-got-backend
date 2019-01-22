@@ -43,7 +43,7 @@ class ListViewer extends React.Component {
   }
 
   changeContent(item) {
-    console.log('changing content!')
+    console.log('changing content!', item)
     this.setState({ currentItem: item });
   }
 

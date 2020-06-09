@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
@@ -12,13 +11,13 @@ class CodeMirrorEditor extends React.Component {
     super(props);
     this.state = {
       currentContent: '',
-    }
+    };
   }
 
   componentDidMount() {
-    console.log('codemirroreditor mounted')
+    console.log('codemirroreditor mounted');
     // setup codemirror
-    console.log('component mounted')
+    console.log('component mounted');
     const codeMirrorOptions = {
       value: this.props.initialContent || '',
       mode: 'markdown',
@@ -29,21 +28,21 @@ class CodeMirrorEditor extends React.Component {
     this.codemirror = CodeMirror(domElement, codeMirrorOptions);
     document.querySelector('.CodeMirror').style = 'height: 100%';
 
-    this.codemirror.on('change', self => {
-      console.log('codemirror change')
+    this.codemirror.on('change', (self) => {
+      console.log('codemirror change');
       const text = self.getValue();
       const contentIsDifferent = this.state.currentContent !== text;
-      if(contentIsDifferent) {
-        if(this.props.editorDidChange) this.props.editorDidChange(text);
+      if (contentIsDifferent) {
+        if (this.props.editorDidChange) this.props.editorDidChange(text);
         this.setState({ currentContent: text });
       }
     });
   }
 
   componentDidUpdate(prevProps) {
-    console.log('codemirroreditor updated')
-    if(this.props.intialContent !== this.props.intialContent) {
-      console.log('setting codemirror value!')
+    console.log('codemirroreditor updated');
+    if (this.props.intialContent !== this.props.intialContent) {
+      console.log('setting codemirror value!');
       this.codemirror.setValue(this.props.intialContent);
     }
   }
@@ -51,12 +50,11 @@ class CodeMirrorEditor extends React.Component {
   render() {
     // see componentDidMount()
 
-
     const style = {
       height: 'calc(100% - 20px)',
       flex: 1,
     };
-    return (<div style={style} />);
+    return <div style={style} />;
   }
 }
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,8 +5,8 @@ class RenderedView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: '<p>Rendering...</p>'
-    }
+      content: '<p>Rendering...</p>',
+    };
   }
 
   componentDidMount() {
@@ -16,22 +15,18 @@ class RenderedView extends React.Component {
 
   componentDidUpdate(prevProps) {
     // questionable condition....?
-    if(prevProps.item !== this.props.item)
-      this.renderItem(this.props.item);
+    if (prevProps.item !== this.props.item) this.renderItem(this.props.item);
   }
 
   renderItem(item) {
-    if(!item)
-      return this.setState({content: `<p>no item to render</p>`});
+    if (!item) return this.setState({ content: `<p>no item to render</p>` });
 
     let content;
-    if(item.rendered)
-      content = item.rendered;
-    else if(item.render)
-      content = item.render(item);
-    else
-    {
-      content = '<h1>unable to render that item</h1>' +
+    if (item.rendered) content = item.rendered;
+    else if (item.render) content = item.render(item);
+    else {
+      content =
+        '<h1>unable to render that item</h1>' +
         `<pre>${JSON.stringify(item, undefined, 2)}</pre>`;
     }
     this.setState({ content });
@@ -40,8 +35,10 @@ class RenderedView extends React.Component {
   render() {
     const { className, id } = this.props;
     return (
-      <div id={id} className={className}
-        dangerouslySetInnerHTML={{__html: this.state.content}}
+      <div
+        id={id}
+        className={className}
+        dangerouslySetInnerHTML={{ __html: this.state.content }}
       />
     );
   }

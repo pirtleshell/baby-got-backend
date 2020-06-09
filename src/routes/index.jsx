@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Dashboad from './dashboard';
 import Edit from './edit';
@@ -6,10 +5,10 @@ import Edit from './edit';
 export default [
   {
     route: '/edit/*',
-    component: (<Edit />)
+    component: <Edit />,
   },
   {
     route: '/',
-    component: (<Dashboad />)
-  }
+    component: <Dashboad />,
+  },
 ];

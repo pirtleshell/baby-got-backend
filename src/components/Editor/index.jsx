@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import CodeMirrorEditor from './CodeMirrorEditor';
@@ -11,8 +10,7 @@ class Editor extends React.Component {
   }
 
   onEditorChange(newText) {
-    if(this.props.editorDidChange)
-      this.props.editorDidChange(newText);
+    if (this.props.editorDidChange) this.props.editorDidChange(newText);
   }
 
   render() {
@@ -20,10 +18,10 @@ class Editor extends React.Component {
     const editorStyle = {
       display: 'flex',
       flexDirection: 'column',
-    }
+    };
     return (
-      <div id='editor' className={className} style={editorStyle} >
-        {filename && (<div>You're editing {filename}</div>)}
+      <div id="editor" className={className} style={editorStyle}>
+        {filename && <div>You're editing {filename}</div>}
         <CodeMirrorEditor
           initialContent={this.initialContent}
           editorDidChange={this.onEditorChange}

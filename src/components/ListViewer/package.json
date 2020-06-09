@@ -1,6 +1,0 @@
-{
-  "name": "ListViewer",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ListViewer.js"
-}

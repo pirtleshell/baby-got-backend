@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import ItemList from './ItemList';
@@ -7,7 +6,10 @@ import RenderedView from '../RenderedView';
 import Api from '../../api';
 const api = new Api();
 
-const setItemKey = (item, i) => {item.key = i; return item};
+const setItemKey = (item, i) => {
+  item.key = i;
+  return item;
+};
 
 class ListViewer extends React.Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class ListViewer extends React.Component {
   }
 
   componentDidMount() {
+    console.log('added!')
     window.addEventListener('keypress', this.watchLeftRight);
     this.fetchMore();
   }
@@ -50,6 +53,8 @@ class ListViewer extends React.Component {
   watchLeftRight(e) {
     let right = e.keyCode === 39;
     let left = e.keyCode === 37;
+    console.log(left, right)
+    console.log(e)
     if(left || right) {
       // find current page index
       const currIndex = this.state.items.map(item => item.key).indexOf(this.state.currentItem.key);

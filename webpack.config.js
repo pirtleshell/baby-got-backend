@@ -1,23 +1,20 @@
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: './src/index.html',
-  filename: './index.html'
+  filename: './index.html',
 });
 
 module.exports = {
   entry: './src/index.js',
   module: {
     rules: [
-
-      // .JS
+      // .JS(X)
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-        }
+        loader: 'babel-loader',
+        resolve: { extensions: ['.js', '.jsx'] },
       },
 
       // .HTML
@@ -27,32 +24,30 @@ module.exports = {
           loader: 'html-loader',
           options: {
             minimize: true,
-          }
-        }
+          },
+        },
       },
 
       // CSS
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader'],
       },
 
       {
         test: /\.md$/,
-        use: 'raw-loader'
+        use: 'raw-loader',
       },
 
       // IMAGES & etc.
       {
-          test: /\.svg/,
-          use: {
-              loader: 'svg-url-loader',
-              options: { noquotes: true, limit: 1024 }
-          }
-      }
-    ]
+        test: /\.svg/,
+        use: {
+          loader: 'svg-url-loader',
+          options: { noquotes: true, limit: 1024 },
+        },
+      },
+    ],
   },
-  plugins: [
-    htmlPlugin
-  ]
+  plugins: [htmlPlugin],
 };

@@ -44,6 +44,11 @@ module.exports = function(options) {
       page.rendered = page.render(page.text, page);
   });
 
+  let objectTypes = [ { name: 'Pages', items: pageSpecs } ];
+  if(options.objectTypes) {
+    objectTypes = objectTypes.concat(options.objectTypes);
+  }
+
   //////////////////
   // Fixed Routes //
   //////////////////
